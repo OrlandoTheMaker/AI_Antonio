@@ -15,6 +15,6 @@ For contributions, kindly reach me via my social media handles displayed on my m
 and i'll gladly connect with you.
 
 ##
-## : ::: I remain Orlando The Maker ::: :
+## : ::: Orlando The Maker ::: :
 ##
 
