@@ -8,7 +8,6 @@ from bs4 import BeautifulSoup
 # Initialize speech recognition
 r = sr.Recognizer()
 
-
 # Initialize text-to-speech engine
 engine = pyttsx3.init()
 engine.setProperty("rate", 150)
@@ -24,11 +23,6 @@ age = ["how old are you", "what is your age"]
 he_lp = ["help", "i need help", "can you help me", "what should I do"]
 appreciation = ["thank you", "thanks", "thanks a lot", "i appreciate it"]
 credit_score = ["what is a credit score", "how do I check my credit score", "how can I improve my credit score"]
-
-# Authentication
-owner = 'orlando'
-
-# Function to listen to user's voice
 
 
 def listen():
@@ -48,99 +42,67 @@ def listen():
         print("Sorry, I am currently unavailable.")
         return ""
 
+
 # Function to speak the response
-
-
 def speak(text):
     engine.say(text)
     engine.runAndWait()
 
 
-# Function to handle user commands
-
-
+# Func
+# tion to handle user commands
 def handle_command(command):
-
     if command in greetings:
         speak("Hello Orlando!, how can I assist you?")
-
     elif command in farewells:
         speak("Goodbye!")
         return True
-
     elif command in time:
         now = datetime.datetime.now()
         current_time = now.strftime("%H:%M:%S")
         speak("The current time is " + current_time)
-
     elif command in location:
-        speak("I am from planet mars")
-
+        speak("I am from planet Mars")
     elif command in weather:
-        speak("I'm sorry, I cannot provide real-time weather information, \n"
+        speak("I'm sorry, I cannot provide real-time weather information.\n"
               "You can check the weather on a weather app or website.")
-
     elif command in capability:
-        speak(" for now i am not capable of doing much but,\n"
-              " in the near future i'm going to be able to do better though.\n"
-              "but at least i can tell you my name, location, and my capabilities like i'm doing at the moment.")
-
+        speak("For now, I am not capable of doing much, but\n"
+              "in the near future, I'm going to be able to do better. "
+              "But at least I can tell you my name, location, and my capabilities like I'm doing at the moment.")
     elif command in appreciation:
-        speak("You're welcome, glad i could help.")
-
+        speak("You're welcome! I'm glad I could help.")
     elif command in age:
-        speak("I don't have an age. I'm a chatbot, \n"
-              "I was born in the digital world. to me, Age is just a number like 0s and 1s")
-
+        speak("I don't have an age. I'm a chatbot,\n"
+              "I was born in the digital world. To me, age is just a number like 0s and 1s.")
     elif command in credit_score:
         speak("A credit score is a number that represents your creditworthiness.\n"
-              "It is based on your credit history and is used by-\n"
-              "lenders to determine whether or not to lend you money. \n"
-              "The higher your credit score, the more likely you are to be approved for credit.,\n"
+              "It is based on your credit history and is used by lenders to determine whether or not to lend you money.\n"
+              "The higher your credit score, the more likely you are to be approved for credit.\n"
               "You can check your credit score for free on several websites such as Credit Karma and Credit Sesame.")
-
-    elif command == owner:
-        speak('access granted!')
-        speak(" Hello Boss, How May I Be Of Assistance Today?")
-
-
     else:
-
         speak("Searching Google for " + command)
-
         search_results = list(search(command))
 
         if len(search_results) > 0:
-
             speak("Here are some search results:")
-
             for i, result in enumerate(search_results, start=1):
                 speak("Result " + str(i) + ": " + result)
                 try:
                     response = requests.get(result)
                     soup = BeautifulSoup(response.content, 'html.parser')
                     paragraphs = soup.find_all('p')
-                    first_paragraph = paragraphs[0-1].text.strip() if paragraphs else "No description available."
+                    first_paragraph = paragraphs[0].text.strip() if paragraphs else "No description available."
                     speak("The first paragraph of the website is:")
                     speak(first_paragraph)
                 except requests.RequestException:
                     speak("Sorry, I couldn't fetch the content of the website.")
-
         else:
-
             speak("Sorry, I couldn't find any relevant search results.")
-
             return False  # Continue the loop
-
-
-# Main program loop
-
-
-speak("Hi, i am antonio. please identify yourself!")
 
 
 while True:
     command = listen()
     if handle_command(command):
         break  # Exit the loop
-
